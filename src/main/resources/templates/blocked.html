@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Blocked Users</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <style>
+        .custom-container {
+            max-width: 1000px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<div th:insert="fragments/header::header"></div>
+<div class="custom-container mt-4">
+    <h2>Blocked Users</h2>
+    <div th:if="${blockedUsers}">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>User</th>
+                <th>Blocked Since</th>
+                <th>Blocked Until</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="blockedUser : ${blockedUsers}">
+                <td th:text="${blockedUser.username}">Username</td>
+                <td th:text="${#temporals.format(blockedUser.blockedTimestamp, 'yyyy-MM-dd HH:mm:ss')}">Blocked Since
+                </td>
+                <td th:text="${#temporals.format(blockedUser.blockedUntilTimestamp, 'yyyy-MM-dd HH:mm:ss')}">Blocked
+                    Until
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:unless="${blockedUsers}">
+        <p class="alert alert-info" role="alert">No users are currently blocked.</p>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

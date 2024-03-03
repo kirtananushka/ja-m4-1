@@ -5,3 +5,7 @@ spring:
     username: root
     password: root
 
+login:
+  attempt:
+    max: 3
+    block-duration-sec: 300
