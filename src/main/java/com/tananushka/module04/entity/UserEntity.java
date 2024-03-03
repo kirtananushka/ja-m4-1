@@ -1,21 +1,25 @@
 package com.tananushka.module04.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.Collection;
-import java.util.Collections;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserEntity implements UserDetails {
@@ -25,11 +29,13 @@ public class UserEntity implements UserDetails {
     private Long id;
     private String userName;
     private String userPassword;
-    private String role;
+
+    @OneToMany(mappedBy = "userEntity", fetch = FetchType.EAGER)
+    private Set<UserGrantedAuthority> authorities;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority(role));
+        return authorities;
     }
 
     @Override
@@ -60,5 +66,18 @@ public class UserEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        String displayedPassword = userPassword.length() > 15 ? userPassword.substring(0, 15) + "..." : userPassword;
+        String authorityList = authorities.stream()
+                .map(UserGrantedAuthority::getAuthority)
+                .collect(Collectors.joining(", "));
+
+        return "UserEntity(id=" + id +
+                ", userName=" + userName +
+                ", userPassword=" + displayedPassword +
+                ", authorities=[" + authorityList + "])";
     }
 }

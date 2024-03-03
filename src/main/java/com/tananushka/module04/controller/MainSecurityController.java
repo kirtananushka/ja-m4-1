@@ -31,6 +31,12 @@ public class MainSecurityController {
         return "about";
     }
 
+    @GetMapping("/admin")
+    public String admin() {
+        logUserInfo("/admin");
+        return "admin";
+    }
+
     private void logUserInfo(String page) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();

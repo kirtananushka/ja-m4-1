@@ -25,9 +25,12 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.authorizeRequests(authorizeRequests ->
+        return http
+                .authorizeRequests(authorizeRequests ->
                         authorizeRequests
                                 .antMatchers(HttpMethod.GET, "/about").permitAll()
+                                .antMatchers(HttpMethod.GET, "/info").hasAuthority("VIEW_INFO")
+                                .antMatchers(HttpMethod.GET, "/admin").hasAuthority("VIEW_ADMIN")
                                 .anyRequest().authenticated()
                 )
                 .formLogin(withDefaults())

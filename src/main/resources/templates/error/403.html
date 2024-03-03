@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Forbidden</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .custom-container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        #forbidden {
+            text-align: center;
+            padding: 50px;
+        }
+
+        .forbidden-403 h1 {
+            font-size: 6em;
+        }
+
+        .forbidden-403 h2 {
+            font-size: 2em;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div th:insert="fragments/header::header"></div>
+<div class="custom-container mt-4" id="forbidden">
+    <div class="forbidden-403">
+        <h1>Oops!</h1>
+        <h2>Forbidden Access</h2>
+        <h2><a th:href="@{/}">BACK TO HOME</a></h2>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

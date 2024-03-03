@@ -24,7 +24,9 @@ public class Application {
             List<UserEntity> users = repository.findAll();
             log.info("UserEntity records:");
             log.info("--------------------");
-            log.info(users.toString());
+            for (UserEntity user : users) {
+                log.info("\n" + user.toString());
+            }
             log.info("");
         };
     }
