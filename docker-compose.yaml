@@ -10,5 +10,7 @@ services:
       MYSQL_DATABASE: usersdb
     ports:
       - "3306:3306"
+    volumes:
+      - ./src/main/resources/mysql:/docker-entrypoint-initdb.d
 
 #  docker run --name mysql -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=usersdb -p 3306:3306 -d mysql:8.0.23
